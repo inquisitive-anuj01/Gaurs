@@ -136,6 +136,7 @@ const FloorPlan = ({ openModal }) => {
                   src={currentPlan.image}
                   alt={currentPlan.title}
                   className="w-full h-full object-contain"
+                  style={{ filter: "blur(6px)" }}
                 />
               </div>
               

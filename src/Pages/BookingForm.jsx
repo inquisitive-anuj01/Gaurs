@@ -1,57 +1,84 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { FiUser, FiMail, FiPhone, FiCheckCircle } from 'react-icons/fi';
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { FiUser, FiMail, FiPhone, FiCheckCircle } from "react-icons/fi";
+import { useEffect } from "react";
 
 const BookingForm = ({ title = "Get in Touch" }) => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
+    name: "",
+    email: "",
+    phone: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
+
+  const downloadPDF = () => {
+    const link = document.createElement("a");
+    link.href =
+      "https://drive.google.com/uc?export=download&id=1LCPxo3irMesU7ul3XbamzJqfD708KqiI";
+    link.download = "Gaur-Brochure.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  useEffect(() => {
+  const handleBack = () => {
+    setIsSubmitted(false);
+  };
+  window.addEventListener("popstate", handleBack);
+  return () => window.removeEventListener("popstate", handleBack);
+}, []);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setError('');
+    setError("");
 
     try {
       // Send data to backend
-      const response = await fetch('https://gaurs-back.vercel.app/api/submit-form', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...formData,
-          formType: 'site-visit',
-          timestamp: new Date().toISOString(),
-          source: 'hero-form'
-        }),
-      });
+      const response = await fetch(
+        "https://gaurs-back.vercel.app/api/submit-form",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...formData,
+            formType: "site-visit",
+            timestamp: new Date().toISOString(),
+            source: "hero-form",
+          }),
+        }
+      );
 
       const data = await response.json();
 
       if (response.ok) {
+        window.history.pushState({}, "", "/thank-you");
+
+        downloadPDF();
+
         setIsSubmitted(true);
-        
-        // Reset form after 3 seconds
+
         setTimeout(() => {
           setFormData({
-            name: '',
-            email: '',
-            phone: '',
+            name: "",
+            email: "",
+            phone: "",
           });
           setIsSubmitted(false);
+          window.history.pushState({}, "", "/");
         }, 3000);
       } else {
-        throw new Error(data.error || 'Submission failed');
+        throw new Error(data.error || "Submission failed");
       }
     } catch (err) {
-      setError(err.message || 'Something went wrong. Please try again.');
-      console.error('Form submission error:', err);
+      setError(err.message || "Something went wrong. Please try again.");
+      console.error("Form submission error:", err);
     } finally {
       setIsSubmitting(false);
     }
@@ -79,12 +106,10 @@ const BookingForm = ({ title = "Get in Touch" }) => {
             <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
               <FiCheckCircle className="text-white text-2xl" />
             </div>
-            <h3 className="text-2xl font-bold text-white mb-3">
-              Thank You!
-            </h3>
+            <h3 className="text-2xl font-bold text-white mb-3">Thank You!</h3>
             <p className="text-gray-300 mb-6">
-              Your site visit request has been submitted successfully.
-              Our team will contact you shortly.
+              Your site visit request has been submitted successfully. Our team
+              will contact you shortly.
             </p>
             <div className="bg-green-500/10 border border-green-500/20 rounded-xl p-4">
               <p className="text-green-300 text-sm">
@@ -97,7 +122,7 @@ const BookingForm = ({ title = "Get in Touch" }) => {
             <h3 className="text-2xl font-bold text-white mb-6 text-center">
               {title}
             </h3>
-            
+
             <form onSubmit={handleSubmit} className="space-y-5">
               <div className="relative">
                 <FiUser className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
@@ -109,10 +134,10 @@ const BookingForm = ({ title = "Get in Touch" }) => {
                   placeholder="Enter Name"
                   required
                   disabled={isSubmitting}
-                  className="w-full pl-12 pr-4 py-3.5 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/30 transition-all disabled:opacity-50 text-sm sm:text-base"
+                  className="w-full pl-12 pr-4 py-3.5 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/30 transition-all disabled:opacity-50 text-sm sm:text-base"
                 />
               </div>
-              
+
               <div className="relative">
                 <FiMail className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
                 <input
@@ -123,10 +148,10 @@ const BookingForm = ({ title = "Get in Touch" }) => {
                   placeholder="Enter Email"
                   required
                   disabled={isSubmitting}
-                  className="w-full pl-12 pr-4 py-3.5 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/30 transition-all disabled:opacity-50 text-sm sm:text-base"
+                  className="w-full pl-12 pr-4 py-3.5 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/30 transition-all disabled:opacity-50 text-sm sm:text-base"
                 />
               </div>
-              
+
               <div className="relative">
                 <FiPhone className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
                 <input
@@ -137,17 +162,17 @@ const BookingForm = ({ title = "Get in Touch" }) => {
                   placeholder="Enter Mobile No."
                   required
                   disabled={isSubmitting}
-                  className="w-full pl-12 pr-4 py-3.5 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/30 transition-all disabled:opacity-50 text-sm sm:text-base"
+                  className="w-full pl-12 pr-4 py-3.5 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/30 transition-all disabled:opacity-50 text-sm sm:text-base"
                 />
               </div>
-              
+
               {/* Error Message */}
               {error && (
                 <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-xl">
                   <p className="text-red-300 text-sm">{error}</p>
                 </div>
               )}
-              
+
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
@@ -157,18 +182,34 @@ const BookingForm = ({ title = "Get in Touch" }) => {
               >
                 {isSubmitting ? (
                   <span className="flex items-center justify-center">
-                    <svg className="animate-spin h-5 w-5 mr-3 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    <svg
+                      className="animate-spin h-5 w-5 mr-3 text-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
                     </svg>
                     Submitting...
                   </span>
                 ) : (
-                  'Submit Now'
+                  "Submit Now"
                 )}
               </motion.button>
             </form>
-            
+
             <p className="text-sm text-gray-400 mt-6 text-center">
               We respect your privacy. No spam, ever.
             </p>

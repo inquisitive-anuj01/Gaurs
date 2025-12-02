@@ -1,28 +1,35 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FiX, FiDownload, FiMail, FiChevronDown, FiMessageSquare, FiCheckCircle } from 'react-icons/fi';
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  FiX,
+  FiDownload,
+  FiMail,
+  FiChevronDown,
+  FiMessageSquare,
+  FiCheckCircle,
+} from "react-icons/fi";
 
 const Modal = ({ isOpen, onClose, type }) => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    city: '',
-    details: ''
+    name: "",
+    email: "",
+    phone: "",
+    city: "",
+    details: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const cities = [
-    'Select City',
-    'Noida',
-    'Greater Noida',
-    'Delhi',
-    'Ghaziabad',
-    'Faridabad',
-    'Gurgaon',
-    'Other'
+    "Select City",
+    "Noida",
+    "Greater Noida",
+    "Delhi",
+    "Ghaziabad",
+    "Faridabad",
+    "Gurgaon",
+    "Other",
   ];
 
   const modalVariants = {
@@ -36,7 +43,7 @@ const Modal = ({ isOpen, onClose, type }) => {
       y: 0,
       scale: 1,
       transition: {
-        type: 'spring',
+        type: "spring",
         damping: 25,
         stiffness: 300,
       },
@@ -58,20 +65,21 @@ const Modal = ({ isOpen, onClose, type }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const downloadPDF = () => {
     // Direct download link from Google Drive
-    const pdfUrl = "https://drive.google.com/uc?export=download&id=1LCPxo3irMesU7ul3XbamzJqfD708KqiI";
-    
+    const pdfUrl =
+      "https://drive.google.com/uc?export=download&id=1LCPxo3irMesU7ul3XbamzJqfD708KqiI";
+
     // Create a temporary anchor element
-    const link = document.createElement('a');
+    const link = document.createElement("a");
     link.href = pdfUrl;
-    link.download = 'Gaur-Chrysalis-Brochure.pdf';
+    link.download = "Gaur-Chrysalis-Brochure.pdf";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -80,53 +88,55 @@ const Modal = ({ isOpen, onClose, type }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setError('');
+    setError("");
 
     try {
       // Send data to backend
-      const response = await fetch('https://gaurs-back.vercel.app/api/submit-form', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...formData,
-          formType: type,
-          timestamp: new Date().toISOString(),
-          source: 'modal'
-        }),
-      });
+      const response = await fetch(
+        "https://gaurs-back.vercel.app/api/submit-form",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...formData,
+            formType: type,
+            timestamp: new Date().toISOString(),
+            source: "modal",
+          }),
+        }
+      );
 
       const data = await response.json();
 
       if (response.ok) {
         setIsSubmitted(true);
+
         
-        // Download PDF if it's a brochure request
-        if (type === 'brochure') {
-          setTimeout(() => {
-            downloadPDF();
-          }, 1000);
-        }
-        
+        setTimeout(() => {
+          downloadPDF();
+        }, 1000);
+        window.history.pushState({}, "", "/thankyou");
+
         // Reset form after 3 seconds
         setTimeout(() => {
           setFormData({
-            name: '',
-            email: '',
-            phone: '',
-            city: '',
-            details: ''
+            name: "",
+            email: "",
+            phone: "",
+            city: "",
+            details: "",
           });
-          setIsSubmitted(false);
           onClose();
+           
         }, 3000);
       } else {
-        throw new Error(data.error || 'Submission failed');
+        throw new Error(data.error || "Submission failed");
       }
     } catch (err) {
-      setError(err.message || 'Something went wrong. Please try again.');
-      console.error('Form submission error:', err);
+      setError(err.message || "Something went wrong. Please try again.");
+      console.error("Form submission error:", err);
     } finally {
       setIsSubmitting(false);
     }
@@ -145,7 +155,7 @@ const Modal = ({ isOpen, onClose, type }) => {
             onClick={onClose}
             className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50"
           />
-          
+
           {/* Modal Content */}
           <div className="fixed inset-0 z-50 p-2 sm:p-4 flex items-center justify-center">
             <motion.div
@@ -155,7 +165,7 @@ const Modal = ({ isOpen, onClose, type }) => {
               exit="exit"
               className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto"
               style={{
-                WebkitOverflowScrolling: 'touch'
+                WebkitOverflowScrolling: "touch",
               }}
             >
               {/* Glass Effect Container */}
@@ -167,7 +177,7 @@ const Modal = ({ isOpen, onClose, type }) => {
                       <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-amber-500 to-amber-600 rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg flex-shrink-0">
                         {isSubmitted ? (
                           <FiCheckCircle className="text-white text-lg sm:text-xl" />
-                        ) : type === 'brochure' ? (
+                        ) : type === "brochure" ? (
                           <FiDownload className="text-white text-lg sm:text-xl" />
                         ) : (
                           <FiMail className="text-white text-lg sm:text-xl" />
@@ -175,16 +185,16 @@ const Modal = ({ isOpen, onClose, type }) => {
                       </div>
                       <div className="min-w-0 flex-1">
                         <h3 className="text-lg sm:text-2xl font-bold text-white truncate">
-                          {isSubmitted 
-                            ? 'Thank You!' 
-                            : type === 'brochure' 
-                              ? 'Download Brochure' 
-                              : 'Get More Details'}
+                          {isSubmitted
+                            ? "Thank You!"
+                            : type === "brochure"
+                            ? "Download Brochure"
+                            : "Get More Details"}
                         </h3>
                         <p className="text-amber-300 text-xs sm:text-sm mt-0.5 truncate">
-                          {isSubmitted 
-                            ? 'We\'ll contact you soon!' 
-                            : 'Fill the form below and we\'ll get in touch'}
+                          {isSubmitted
+                            ? "We'll contact you soon!"
+                            : "Fill the form below and we'll get in touch"}
                         </p>
                       </div>
                     </div>
@@ -198,7 +208,7 @@ const Modal = ({ isOpen, onClose, type }) => {
                     </motion.button>
                   </div>
                 </div>
-                
+
                 {/* Body - Scrollable on Mobile */}
                 <div className="p-4 sm:p-6">
                   {isSubmitted ? (
@@ -215,7 +225,8 @@ const Modal = ({ isOpen, onClose, type }) => {
                       </h4>
                       <p className="text-gray-300 mb-6">
                         Your information has been submitted successfully.
-                        {type === 'brochure' && ' The brochure has been sent to your email.'}
+                        {type === "brochure" &&
+                          " The brochure has been sent to your email."}
                       </p>
                       <div className="bg-green-500/10 border border-green-500/20 rounded-xl p-4">
                         <p className="text-green-300 text-sm">
@@ -225,7 +236,10 @@ const Modal = ({ isOpen, onClose, type }) => {
                     </motion.div>
                   ) : (
                     <>
-                      <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+                      <form
+                        onSubmit={handleSubmit}
+                        className="space-y-4 sm:space-y-5"
+                      >
                         {/* Name */}
                         <div>
                           <label className="block text-amber-200 text-xs sm:text-sm font-medium mb-1.5 sm:mb-2">
@@ -244,7 +258,7 @@ const Modal = ({ isOpen, onClose, type }) => {
                             />
                           </div>
                         </div>
-                        
+
                         {/* Email */}
                         <div>
                           <label className="block text-amber-200 text-xs sm:text-sm font-medium mb-1.5 sm:mb-2">
@@ -263,7 +277,7 @@ const Modal = ({ isOpen, onClose, type }) => {
                             />
                           </div>
                         </div>
-                        
+
                         {/* Phone */}
                         <div>
                           <label className="block text-amber-200 text-xs sm:text-sm font-medium mb-1.5 sm:mb-2">
@@ -282,7 +296,7 @@ const Modal = ({ isOpen, onClose, type }) => {
                             />
                           </div>
                         </div>
-                        
+
                         {/* City */}
                         <div>
                           <label className="block text-amber-200 text-xs sm:text-sm font-medium mb-1.5 sm:mb-2">
@@ -298,8 +312,8 @@ const Modal = ({ isOpen, onClose, type }) => {
                               className="w-full px-4 py-2.5 sm:py-3.5 bg-white/10 border border-amber-500/30 rounded-lg sm:rounded-xl text-white focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 transition-all appearance-none text-sm sm:text-base disabled:opacity-50"
                             >
                               {cities.map((city, index) => (
-                                <option 
-                                  key={index} 
+                                <option
+                                  key={index}
                                   value={city}
                                   className="bg-gray-800 text-white"
                                   disabled={index === 0}
@@ -311,7 +325,7 @@ const Modal = ({ isOpen, onClose, type }) => {
                             <FiChevronDown className="absolute right-3 sm:right-4 top-1/2 transform -translate-y-1/2 text-amber-400 pointer-events-none" />
                           </div>
                         </div>
-                        
+
                         {/* Additional Details */}
                         <div>
                           <label className="block text-amber-200 text-xs sm:text-sm font-medium mb-1.5 sm:mb-2">
@@ -330,14 +344,14 @@ const Modal = ({ isOpen, onClose, type }) => {
                             <FiMessageSquare className="absolute right-3 sm:right-4 top-3 text-amber-400/50" />
                           </div>
                         </div>
-                        
+
                         {/* Error Message */}
                         {error && (
                           <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-lg">
                             <p className="text-red-300 text-sm">{error}</p>
                           </div>
                         )}
-                        
+
                         {/* Submit Button */}
                         <motion.button
                           whileHover={{ scale: 1.02 }}
@@ -348,29 +362,48 @@ const Modal = ({ isOpen, onClose, type }) => {
                         >
                           {isSubmitting ? (
                             <span className="flex items-center justify-center">
-                              <svg className="animate-spin h-5 w-5 mr-3 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                              <svg
+                                className="animate-spin h-5 w-5 mr-3 text-white"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                              >
+                                <circle
+                                  className="opacity-25"
+                                  cx="12"
+                                  cy="12"
+                                  r="10"
+                                  stroke="currentColor"
+                                  strokeWidth="4"
+                                ></circle>
+                                <path
+                                  className="opacity-75"
+                                  fill="currentColor"
+                                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                                ></path>
                               </svg>
                               Processing...
                             </span>
                           ) : (
                             <span className="relative z-10">
-                              {type === 'brochure' 
-                                ? 'Download Brochure Now' 
-                                : 'Submit Your Request'}
+                              {type === "brochure"
+                                ? "Download Brochure Now"
+                                : "Submit Your Request"}
                             </span>
                           )}
                           <div className="absolute inset-0 bg-gradient-to-r from-amber-600 via-amber-700 to-amber-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                         </motion.button>
                       </form>
-                      
+
                       {/* Assurance Message */}
                       <div className="mt-4 sm:mt-6 p-3 sm:p-4 bg-amber-500/10 border border-amber-500/20 rounded-lg sm:rounded-xl">
                         <p className="text-center text-amber-200 text-xs sm:text-sm">
-                          <span className="font-semibold">✓ Your information is secure</span>
+                          <span className="font-semibold">
+                            ✓ Your information is secure
+                          </span>
                           <br />
-                          We'll contact you within 24 hours. No spam, guaranteed.
+                          We'll contact you within 24 hours. No spam,
+                          guaranteed.
                         </p>
                       </div>
                     </>

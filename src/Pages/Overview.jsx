@@ -16,14 +16,15 @@ const Overview = ({openModal}) => {
           <div className="relative">
             <div className="relative z-10 rounded-2xl  left-0 md:-left-20 top-0 md:-top-10  overflow-hidden shadow-2xl">
               <img
-                src="https://res.cloudinary.com/dzvwqhzgf/image/upload/v1764652591/Picture1-min_hl9ufb.png"
+                src="https://res.cloudinary.com/dzvwqhzgf/image/upload/v1764655429/Untitled_design_89_je1ruk.png"
+                
                 alt="Gaur Chrysalis Overview"
                 className="w-full h-96 object-cover"
               />
             </div>
             <div className="absolute -bottom-4 -right-10 w-2/3 rounded-2xl overflow-hidden shadow-2xl">
               <img
-                src="https://res.cloudinary.com/dzvwqhzgf/image/upload/v1764655429/Untitled_design_89_je1ruk.png"
+                src="https://res.cloudinary.com/dzvwqhzgf/image/upload/v1764652591/Picture1-min_hl9ufb.png"
                 alt="Interior"
                 className="w-full h-84 object-cover"
               />

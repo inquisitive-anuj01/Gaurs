@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState , useEffect} from 'react'
 import Header from './Header';
 import Hero from './Hero';
 import Overview from './Overview';
@@ -22,6 +22,7 @@ function Home() {
       };
     
       const closeModal = () => {
+        window.history.pushState({}, "", "/");
         setIsModalOpen(false);
       };
     
@@ -31,6 +32,13 @@ function Home() {
           element.scrollIntoView({ behavior: 'smooth' });
         }
       };
+
+      useEffect(() => {
+  const handleBack = () => setIsModalOpen(false);
+  window.addEventListener("popstate", handleBack);
+  return () => window.removeEventListener("popstate", handleBack);
+}, []);
+
   return (
     <div className="min-h-screen bg-gray-100 w-full overflow-x-hidden">
       <Header scrollToSection={scrollToSection} />
