@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FiChevronLeft, FiChevronRight, FiWifi, FiDroplet, FiWind, FiRadio, FiTv, FiSun } from 'react-icons/fi';
 import { GiGymBag, GiTennisCourt, GiBasketballBall, GiPartyPopper } from 'react-icons/gi';
 import { MdSportsTennis, MdLocalParking, MdSecurity } from 'react-icons/md';
+import { PiSecurityCamera } from "react-icons/pi";
 
 const Amenities = () => {
   const [activeCategory, setActiveCategory] = useState('all');
@@ -38,7 +39,7 @@ const Amenities = () => {
       title: "Badminton Court",
       category: "sports",
       icon: <MdSportsTennis className="text-4xl" />,
-      image: "https://images.unsplash.com/photo-1595435934247-5d33b7f92c70?auto=format&fit=crop&w=800",
+      image: "https://res.cloudinary.com/dzvwqhzgf/image/upload/v1764657166/side-view-empty-paddle-tennis-field_eurjb5.jpg",
       description: "Professional badminton courts"
     },
     {
@@ -46,7 +47,7 @@ const Amenities = () => {
       title: "Kids Play Area",
       category: "leisure",
       icon: <GiPartyPopper className="text-4xl" />,
-      image: "https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=800",
+      image: "https://res.cloudinary.com/dzvwqhzgf/image/upload/v1764657260/outdoors-colorful-children-playground-background-min_ywoxyl.jpg",
       description: "Safe and fun play area for children"
     },
     {
@@ -54,7 +55,7 @@ const Amenities = () => {
       title: "Jogging Track",
       category: "fitness",
       icon: <FiWind className="text-4xl" />,
-      image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800",
+      image: "https://res.cloudinary.com/dzvwqhzgf/image/upload/v1764657730/alex-mccarthy-kNqX2Z-C0I8-unsplash_mk3zdp.jpg",
       description: "2km jogging track amidst greenery"
     },
     {
@@ -70,7 +71,7 @@ const Amenities = () => {
       title: "Tennis Court",
       category: "sports",
       icon: <GiTennisCourt className="text-4xl" />,
-      image: "https://images.unsplash.com/photo-1595435934249-5e6d79a5e3c5?auto=format&fit=crop&w=800",
+      image: "https://res.cloudinary.com/dzvwqhzgf/image/upload/v1764657726/asphalt-tennis-court-5354328_1280_fmrkjd.jpg",
       description: "Professional tennis courts"
     },
     {
@@ -78,8 +79,16 @@ const Amenities = () => {
       title: "Basketball Court",
       category: "sports",
       icon: <GiBasketballBall className="text-4xl" />,
-      image: "https://images.unsplash.com/photo-1544919982-b61976a0d7ed?auto=format&fit=crop&w=800",
+      image: "https://res.cloudinary.com/dzvwqhzgf/image/upload/v1764657259/basketball-sport-environment-filed-min_gkchyt.jpg",
       description: "Full-size basketball court"
+    },
+    {
+      id: 9,
+      title: "Security Cams",
+      category: "security",
+      icon: <PiSecurityCamera className='text-5xl'/>,
+      image: "https://res.cloudinary.com/dzvwqhzgf/image/upload/v1764657736/medium-shot-blurry-woman-indoors_vls9eg.jpg",
+      description: "All time security"
     }
   ];
 

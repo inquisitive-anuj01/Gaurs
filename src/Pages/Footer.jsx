@@ -46,7 +46,7 @@ const Footer = () => {
             </p>
             
             {/* Social Links */}
-            <div className="flex space-x-4">
+            {/* <div className="flex space-x-4">
               {socialLinks.map((social, index) => (
                 <motion.a
                   key={index}
@@ -60,7 +60,7 @@ const Footer = () => {
                   {social.icon}
                 </motion.a>
               ))}
-            </div>
+            </div> */}
           </div>
 
           {/* Quick Links */}
@@ -158,8 +158,7 @@ const Footer = () => {
           <div>
             <p className="text-gray-400 text-sm">
               © {new Date().getFullYear()} Gaur Chrysalis (Phase 1). All rights reserved.
-              <br />
-              This website is managed by authorized channel partner "A Square Technologies" of Gaurs Group.
+              
             </p>
           </div>
 

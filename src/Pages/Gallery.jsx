@@ -13,16 +13,16 @@ const Gallery = () => {
       type: 'image',
       category: 'exterior',
       title: 'Project Exterior',
-      image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800',
-      thumbnail: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=400'
+      image: 'https://res.cloudinary.com/dzvwqhzgf/image/upload/v1764667015/Screenshot_2025-12-02_144520_uaxr91.png',
+      thumbnail: 'https://res.cloudinary.com/dzvwqhzgf/image/upload/v1764667015/Screenshot_2025-12-02_144520_uaxr91.png'
     },
     {
       id: 2,
       type: 'image',
-      category: 'interior',
-      title: 'Luxury Living Room',
-      image: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=800',
-      thumbnail: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=400'
+      category: 'exterior',
+      title: 'World Class Education',
+      image: 'https://res.cloudinary.com/dzvwqhzgf/image/upload/v1764667015/Screenshot_2025-12-02_144615_vpmg9i.png',
+      thumbnail: 'https://res.cloudinary.com/dzvwqhzgf/image/upload/v1764667015/Screenshot_2025-12-02_144615_vpmg9i.png'
     },
     {
       id: 3,
@@ -37,8 +37,8 @@ const Gallery = () => {
       type: 'image',
       category: 'interior',
       title: 'Modern Kitchen',
-      image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=800',
-      thumbnail: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=400'
+      image: 'https://res.cloudinary.com/dzvwqhzgf/image/upload/v1764667276/modern-kitchen-interior-design_d2qjts.jpg',
+      thumbnail: 'https://res.cloudinary.com/dzvwqhzgf/image/upload/v1764667276/modern-kitchen-interior-design_d2qjts.jpg'
     },
     {
       id: 5,
@@ -48,16 +48,9 @@ const Gallery = () => {
       image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800',
       thumbnail: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=400'
     },
+  
     {
       id: 6,
-      type: 'video',
-      category: 'promotional',
-      title: 'Project Walkthrough',
-      image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800',
-      thumbnail: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=400'
-    },
-    {
-      id: 7,
       type: 'image',
       category: 'exterior',
       title: 'Garden View',
@@ -65,7 +58,7 @@ const Gallery = () => {
       thumbnail: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=400'
     },
     {
-      id: 8,
+      id: 7,
       type: 'image',
       category: 'interior',
       title: 'Master Bedroom',
@@ -79,7 +72,6 @@ const Gallery = () => {
     { id: 'exterior', label: 'Exterior' },
     { id: 'interior', label: 'Interior' },
     { id: 'amenities', label: 'Amenities' },
-    { id: 'promotional', label: 'Videos' }
   ];
 
   const filteredItems = filter === 'all' 

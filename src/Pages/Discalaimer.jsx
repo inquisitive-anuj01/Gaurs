@@ -32,7 +32,7 @@ const Disclaimer = () => {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-6xl mx-auto px-4 py-12">
+      <main className="max-w-6xl mx-auto px-4 py-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -40,13 +40,11 @@ const Disclaimer = () => {
         >
           {/* Hero Section */}
           <div className="text-center">
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-red-500/10 to-red-600/10 rounded-2xl mb-6">
-              <FiAlertTriangle className="text-4xl text-red-500" />
-            </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+
+            <h1 className="text-lg sm:text-lg md:text-xl font-bold text-gray-900 mb-3 sm:mb-4">
               Disclaimer
             </h1>
-            <p className="text-gray-600 max-w-3xl mx-auto">
+            <p className="text-gray-600 max-w-3xl mx-auto text-sm sm:text-base">
               Important information about our website content and terms
             </p>
           </div>

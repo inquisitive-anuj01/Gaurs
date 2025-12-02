@@ -98,9 +98,8 @@ const Location = () => {
               <div className="relative h-96 bg-gradient-to-br from-gray-100 to-gray-200">
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center">
-                    <FiMapPin className="text-6xl text-amber-500 mx-auto mb-4" />
-                    <p className="text-gray-700 font-semibold">Interactive Map</p>
-                    <p className="text-gray-500 text-sm">Sector 22D, Yamuna Expressway</p>
+                   
+                    <img src="https://res.cloudinary.com/dzvwqhzgf/image/upload/v1764667843/Screenshot_2025-12-02_145951_onvoue.png" alt="location" className='h-full w-full ' />
                   </div>
                 </div>
                 

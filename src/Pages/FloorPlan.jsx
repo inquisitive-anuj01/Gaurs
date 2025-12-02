@@ -11,7 +11,7 @@ const FloorPlan = ({ openModal }) => {
     '3bhk': {
       title: "3 BHK Apartment",
       size: "1910 sq.ft.",
-      image: "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=800",
+      image: "https://res.cloudinary.com/dzvwqhzgf/image/upload/v1764659898/3bhk_ftu9af.jpg",
       rooms: [
         { type: "Bedroom", count: 3, icon: <MdKingBed /> },
         { type: "Bathroom", count: 3, icon: <MdBathtub /> },
@@ -30,7 +30,7 @@ const FloorPlan = ({ openModal }) => {
     '4bhk': {
       title: "4 BHK Apartment",
       size: "2495 sq.ft.",
-      image: "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=800",
+      image: "https://res.cloudinary.com/dzvwqhzgf/image/upload/v1764659890/4bhk_czg249.jpg",
       rooms: [
         { type: "Bedroom", count: 4, icon: <MdKingBed /> },
         { type: "Bathroom", count: 4, icon: <MdBathtub /> },
@@ -96,7 +96,7 @@ const FloorPlan = ({ openModal }) => {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 ">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 ">
           {/* Floor Plan Image */}
           <motion.div
             key={selectedPlan}

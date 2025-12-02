@@ -36,14 +36,11 @@ const PrivacyPolicy = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="space-y-8 sm:space-y-12"
+          className=""
         >
           {/* Hero Section */}
           <div className="text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-blue-500/10 to-blue-600/10 rounded-2xl mb-4 sm:mb-6">
-              <FiShield className="text-3xl sm:text-4xl text-blue-500" />
-            </div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-3 sm:mb-4">
+            <h1 className="text-lg sm:text-lg md:text-xl font-bold text-gray-900 mb-3 sm:mb-4">
               Privacy Policy
             </h1>
             <p className="text-gray-600 max-w-3xl mx-auto text-sm sm:text-base">
