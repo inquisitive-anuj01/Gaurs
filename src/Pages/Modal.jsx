@@ -65,18 +65,53 @@ const Modal = ({ isOpen, onClose, type }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    
+    // Clear global error when user types to improve UX
+    if (error) setError("");
+
+    // 1. Phone Validation: Only allow digits, max 10
+    if (name === "phone") {
+      // If value contains non-digits, ignore the change
+      if (!/^\d*$/.test(value)) return;
+      // If length is greater than 10, ignore the change
+      if (value.length > 10) return;
+    }
+
+    // 2. Name Validation: Should be string (no digits)
+    if (name === "name") {
+      // If value contains digits, ignore the change
+      if (/\d/.test(value)) return;
+    }
+
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
 
+  const validateForm = () => {
+    // Name validation
+    if (!formData.name.trim()) return "Name is required";
+    if (formData.name.trim().length < 3) return "Name must be at least 3 characters";
+
+    // Email validation using Regex
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    if (!formData.email) return "Email is required";
+    if (!emailRegex.test(formData.email)) return "Please enter a valid email address";
+
+    // Phone validation
+    if (!formData.phone) return "Phone number is required";
+    if (formData.phone.length !== 10) return "Phone number must be exactly 10 digits";
+
+    // City validation
+
+    return null; // No errors
+  };
+
   const downloadPDF = () => {
-    // Direct download link from Google Drive
     const pdfUrl =
       "https://drive.google.com/uc?export=download&id=1LCPxo3irMesU7ul3XbamzJqfD708KqiI";
 
-    // Create a temporary anchor element
     const link = document.createElement("a");
     link.href = pdfUrl;
     link.download = "Gaur-Chrysalis-Brochure.pdf";
@@ -87,11 +122,18 @@ const Modal = ({ isOpen, onClose, type }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Run all validations
+    const validationError = validateForm();
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
+
     setIsSubmitting(true);
     setError("");
 
     try {
-      // Send data to backend
       const response = await fetch(
         "https://gaurs-back.vercel.app/api/submit-form",
         {
@@ -112,14 +154,12 @@ const Modal = ({ isOpen, onClose, type }) => {
 
       if (response.ok) {
         setIsSubmitted(true);
-
         
         setTimeout(() => {
           downloadPDF();
         }, 1000);
         window.history.pushState({}, "", "/thankyou");
 
-        // Reset form after 3 seconds
         setTimeout(() => {
           setFormData({
             name: "",
@@ -129,7 +169,6 @@ const Modal = ({ isOpen, onClose, type }) => {
             details: "",
           });
           onClose();
-           
         }, 3000);
       } else {
         throw new Error(data.error || "Submission failed");
@@ -170,7 +209,7 @@ const Modal = ({ isOpen, onClose, type }) => {
             >
               {/* Glass Effect Container */}
               <div className="bg-gradient-to-br from-gray-900/95 via-gray-800/95 to-gray-900/95 backdrop-blur-xl border border-amber-500/30 rounded-xl sm:rounded-2xl shadow-2xl overflow-hidden">
-                {/* Header - Sticky on Mobile */}
+                {/* Header */}
                 <div className="sticky top-0 z-10 p-4 sm:p-6 border-b border-amber-500/30 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2 sm:space-x-3 flex-1 min-w-0">
@@ -209,7 +248,7 @@ const Modal = ({ isOpen, onClose, type }) => {
                   </div>
                 </div>
 
-                {/* Body - Scrollable on Mobile */}
+                {/* Body */}
                 <div className="p-4 sm:p-6">
                   {isSubmitted ? (
                     <motion.div
@@ -240,7 +279,7 @@ const Modal = ({ isOpen, onClose, type }) => {
                         onSubmit={handleSubmit}
                         className="space-y-4 sm:space-y-5"
                       >
-                        {/* Name */}
+                        {/* Name - Validated to ensure no numbers */}
                         <div>
                           <label className="block text-amber-200 text-xs sm:text-sm font-medium mb-1.5 sm:mb-2">
                             Full Name *
@@ -259,7 +298,7 @@ const Modal = ({ isOpen, onClose, type }) => {
                           </div>
                         </div>
 
-                        {/* Email */}
+                        {/* Email - Validated with Regex */}
                         <div>
                           <label className="block text-amber-200 text-xs sm:text-sm font-medium mb-1.5 sm:mb-2">
                             Email Address *
@@ -278,7 +317,7 @@ const Modal = ({ isOpen, onClose, type }) => {
                           </div>
                         </div>
 
-                        {/* Phone */}
+                        {/* Phone - Validated: Digits only, Max 10 */}
                         <div>
                           <label className="block text-amber-200 text-xs sm:text-sm font-medium mb-1.5 sm:mb-2">
                             Mobile Number *
@@ -289,15 +328,16 @@ const Modal = ({ isOpen, onClose, type }) => {
                               name="phone"
                               value={formData.phone}
                               onChange={handleChange}
-                              placeholder="Enter mobile number"
+                              placeholder="Enter 10-digit mobile number"
                               required
                               disabled={isSubmitting}
+                              maxLength={10}
                               className="w-full px-4 py-2.5 sm:py-3.5 bg-white/10 border border-amber-500/30 rounded-lg sm:rounded-xl text-white placeholder-amber-100/50 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/50 transition-all text-sm sm:text-base disabled:opacity-50"
                             />
                           </div>
                         </div>
 
-                        {/* City */}
+                        {/* City - Validated: Must not be default */}
                         <div>
                           <label className="block text-amber-200 text-xs sm:text-sm font-medium mb-1.5 sm:mb-2">
                             City *
@@ -347,8 +387,8 @@ const Modal = ({ isOpen, onClose, type }) => {
 
                         {/* Error Message */}
                         {error && (
-                          <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-lg">
-                            <p className="text-red-300 text-sm">{error}</p>
+                          <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-lg animate-pulse">
+                            <p className="text-red-300 text-sm font-medium text-center">{error}</p>
                           </div>
                         )}
 

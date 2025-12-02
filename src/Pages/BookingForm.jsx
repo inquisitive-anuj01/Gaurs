@@ -13,6 +13,8 @@ const BookingForm = ({ title = "Get in Touch" }) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState("");
 
+  const validat
+
   const downloadPDF = () => {
     const link = document.createElement("a");
     link.href =

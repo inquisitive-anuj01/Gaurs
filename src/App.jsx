@@ -19,7 +19,7 @@ function App() {
         </Routes>
 
         <a
-          href="https://wa.me/918744000638"
+          href="https://wa.me/9195766 71333"
           target="_blank"
           rel="noopener noreferrer"
           className="fixed bottom-5 right-5 z-50 
