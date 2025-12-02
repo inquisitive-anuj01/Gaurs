@@ -117,22 +117,7 @@ const Footer = () => {
           <div>
             <h3 className="text-xl font-bold mb-6">Legal & Compliance</h3>
             <div className="space-y-4">
-              <div>
-                <h4 className="font-semibold mb-2">RERA Details</h4>
-                <p className="text-gray-400 text-sm">
-                  Project: UPRERAPRJ622344/11/2025
-                  <br />
-                  Agent: UPRERAAGT10202
-                </p>
-                <a 
-                  href="https://up-rera.in/projects/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-amber-400 hover:text-amber-300 text-sm underline"
-                >
-                  View on UP RERA Portal
-                </a>
-              </div>
+             
               
               <div>
                 <h4 className="font-semibold mb-2">Collection Account</h4>
