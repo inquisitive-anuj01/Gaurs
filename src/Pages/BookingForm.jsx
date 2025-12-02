@@ -60,7 +60,7 @@ const BookingForm = ({ title = "Get in Touch" }) => {
       const data = await response.json();
 
       if (response.ok) {
-        window.history.pushState({}, "", "/thank-you");
+        window.history.pushState({}, "", "/thankyou");
 
         downloadPDF();
 
