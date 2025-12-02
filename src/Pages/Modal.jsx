@@ -84,7 +84,7 @@ const Modal = ({ isOpen, onClose, type }) => {
 
     try {
       // Send data to backend
-      const response = await fetch('http://localhost:5000/api/submit-form', {
+      const response = await fetch('https://gaurs-back.vercel.app/api/submit-form', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
