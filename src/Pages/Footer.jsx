@@ -103,10 +103,7 @@ const Footer = () => {
                   📞
                 </div>
                 <div>
-                  <a href="tel:+917055670556" className="text-gray-400 hover:text-amber-400">
-                   +91 87440 00638
-                  </a>
-                  <br />
+                  
                   <a href="tel:+917055670556" className="text-gray-400 hover:text-amber-400">
                    +91 95766 71333
                   </a>

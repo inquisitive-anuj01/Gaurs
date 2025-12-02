@@ -41,7 +41,7 @@ function Home() {
 
   return (
     <div className="min-h-screen bg-gray-100 w-full overflow-x-hidden">
-      <Header scrollToSection={scrollToSection} />
+      <Header scrollToSection={scrollToSection} openModal={openModal}/>
       <Hero openModal={openModal} />
       <Overview openModal={openModal}/>
       <Highlights />

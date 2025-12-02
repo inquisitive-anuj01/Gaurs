@@ -279,7 +279,7 @@ const PrivacyPolicy = () => {
             </div>
 
             {/* Contact Information */}
-            <div className="space-y-4 sm:space-y-6">
+            {/* <div className="space-y-4 sm:space-y-6">
               <div className="flex items-center space-x-3">
                 <FiMail className="text-xl sm:text-2xl text-blue-600" />
                 <h2 className="text-xl sm:text-2xl font-bold text-gray-900">Contact Information</h2>
@@ -312,7 +312,7 @@ const PrivacyPolicy = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
 
             {/* Changes to This Policy */}
             <div className="space-y-4 sm:space-y-6">

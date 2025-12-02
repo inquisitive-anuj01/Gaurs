@@ -162,7 +162,7 @@ const Disclaimer = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <a
-                  href="tel:+917055670556"
+                  href="tel:+91 87440 00638"
                   className="inline-flex items-center justify-center bg-gradient-to-r from-amber-500 to-amber-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition-all"
                 >
                   Call Sales Team
